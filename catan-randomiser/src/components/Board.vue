@@ -10,7 +10,7 @@
         v-for="(point, index) in row"
         :key="index"
       >
-        o
+        <span> {{point}}</span>
       </span>
     </div>
   </div>
@@ -25,12 +25,7 @@ export default {
   data () {
     return {
       boardRows: boardData.rowLengths,
-      boardArray: [],
-      playerPositionsByColour: {
-        "orange": [],
-        "red": [],
-        "blue": []
-      }
+      boardArray: []
     }
   },
   methods: {
@@ -50,20 +45,19 @@ export default {
 
       const getRandomPlayerPos = () => {
         const playerRow = Math.floor(Math.random() * totalBoardRows);
-        const playerCol = Math.floor(Math.random(tempBoardArray[playerRow].length) * tempBoardArray[playerRow].length);
+        const playerCol = Math.floor(Math.random(tempBoardArray[playerRow].length)
+                          * tempBoardArray[playerRow].length);
         const playerPos = [playerRow, playerCol];
 
         return playerPos;
       }
 
-      const addPlayerPositionsToObject = () => {
-        let tempPlayerPositionsByColour = this.playerPositionsByColour
-        Object.entries(tempPlayerPositionsByColour).forEach(([colour], index) => {
-          tempPlayerPositionsByColour[colour] = playerPositions[index];
-        });
+      const addPlayerPositionsToBoard = () => {
+        playerPositions.forEach((pos, index) => {
+          tempBoardArray[pos[0][0]][pos[0][1]] = index + 1;
+          tempBoardArray[pos[1][0]][pos[1][1]] = index + 1;
+        })
 
-        this.playerPositionsByColour = tempPlayerPositionsByColour;
-        console.log("positions added", tempPlayerPositionsByColour);
       }
 
 
@@ -77,7 +71,8 @@ export default {
             let allPointsSatisfy = true;
 
             playerPositions.flat().forEach((pos) => {
-              const neighbours = [[0,0], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
+              const neighbours = [[0,0], [-1, -1], [-1, 0], [-1, 1], [0, 1],
+                                  [1, 1], [1, 0], [1, -1], [0, -1]];
               neighbours.forEach((neighbour) => {
                 const x = tempPlayerPos[0] + neighbour[0];
                 const y = tempPlayerPos[1] + neighbour[1];
@@ -88,14 +83,12 @@ export default {
                                           y < tempBoardArray[tempPlayerPos[0]].length);
 
                 if (isNeighbourOnBoard && (pos[0] === x  && pos[1] === y)) {
-                  console.log("nup!")
                   allPointsSatisfy = false;
                 }
               });
             });
 
             if (allPointsSatisfy) {
-              console.log("added", j)
               playerPositions[j].push(tempPlayerPos);
               satifiesRequirements = true;
             }
@@ -103,20 +96,15 @@ export default {
         }
       }
 
-      addPlayerPositionsToObject();
+      addPlayerPositionsToBoard();
     }
-
   },
   mounted() {
     this.createEmptyBoardArray()
   },
   watch: {
     boardArray() {
-      console.log('board made!')
       this.randomisePlayers();
-    },
-    playerPositionsByColour() {
-      console.log('playerPositionsByColourvsf', this.playerPositionsByColour);
     }
   },
 }
@@ -138,7 +126,7 @@ export default {
       height: calc(100% / 12);
       width: 100%;
       text-align: center;
-      display: flex;
+      // display: flex;
     }
 
     .board-point {

@@ -6,7 +6,12 @@
       @togglePlayerAmount="togglePlayerAmount"
     />
     <Board
+      :reRandomise="reRandomise"
       :numberOfPlayers="numberOfPlayers"
+      @setReRandomiseToFalse="setReRandomiseToFalse"
+    />
+    <RandomiseButton
+      @setReRandomiseToTrue="setReRandomiseToTrue"
     />
 
   </div>
@@ -15,24 +20,32 @@
 <script>
 import Board from './components/Board.vue';
 import SelectPlayerAmount from './components/SelectPlayerAmount';
-// import RandomiseButton from '../components/RandomiseButton';
+import RandomiseButton from './components/RandomiseButton';
 
 export default {
   name: 'App',
   components: {
     Board,
-    SelectPlayerAmount
+    SelectPlayerAmount,
+    RandomiseButton
   },
   data () {
     return {
       numberOfPlayers: 4,
-      playerAmountArray: [2, 3, 4]
+      playerAmountArray: [2, 3, 4],
+      reRandomise: false
     }
   },
   methods: {
     togglePlayerAmount (value) {
       this.numberOfPlayers = value
       console.log(`value changed to ${value}`)
+    },
+    setReRandomiseToTrue () {
+      this.reRandomise = true
+    },
+    setReRandomiseToFalse () {
+      this.reRandomise = false
     }
   }
 }

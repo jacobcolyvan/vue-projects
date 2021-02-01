@@ -32,11 +32,8 @@
 
 <style lang="scss" scoped>
 #select-player-amounts {
-  // width: 100%;
-  max-width: 500px;
-  max-height: 500px;
   width: 90vw;
-
+  max-width: 500px;
   margin-bottom: 12px;
 
   .amount-button {

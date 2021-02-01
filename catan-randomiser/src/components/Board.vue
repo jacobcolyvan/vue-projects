@@ -26,6 +26,10 @@ export default {
     numberOfPlayers: {
       type: Number,
       required: true
+    },
+    reRandomise: {
+      type: Boolean,
+      required: true
     }
   },
   data () {
@@ -115,6 +119,10 @@ export default {
   watch: {
     numberOfPlayers () {
       this.randomisePlayers();
+    },
+    reRandomise () {
+      this.randomisePlayers();
+      this.$emit('setReRandomiseToFalse')
     }
   },
 }

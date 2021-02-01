@@ -66,7 +66,7 @@ body {
   padding: 0;
   /* background-color: rgb(22, 22, 22);  */
   /* background-color: #FFFAED; */
-  background-color: #928f86;
+  background-color: #bebbaf;
 }
 
 #main {
@@ -76,5 +76,9 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+button {
+  background-color: #f5f5f5;
 }
 </style>

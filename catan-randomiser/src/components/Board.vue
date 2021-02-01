@@ -9,6 +9,7 @@
         class="board-point"
         v-for="(point, index) in row"
         :key="index"
+        v-bind:id="point !== 0? 'player-position': 'empty-position'"
       >
         <span> {{ point === 0 ? 'o' : point }}</span>
       </span>
@@ -152,6 +153,15 @@ export default {
       font-size: 12px;
       height: 100%;
       text-align: center;
+    }
+
+    #player-position {
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    #empty-position {
+      font-size: 10px;
     }
   }
 

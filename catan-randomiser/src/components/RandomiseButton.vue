@@ -20,6 +20,7 @@
     width: 90vw;
     max-width: 500px;
     margin-top: 12px;
+    border: 1px solid #6060c7;
 
     &:hover {
       cursor: pointer;

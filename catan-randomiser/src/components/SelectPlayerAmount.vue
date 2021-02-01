@@ -38,7 +38,7 @@
 
   .amount-button {
     width: calc(100% / 3);
-    border: 1px solid blue;
+    border: 1px solid #6060c7;
 
     &:hover {
       cursor: pointer;
@@ -51,7 +51,7 @@
   }
 
   #selected {
-    border: 1px solid red;
+    border: 1px solid #df6a6a;
   }
 
 }

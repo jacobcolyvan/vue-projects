@@ -10,7 +10,7 @@
         v-for="(point, index) in row"
         :key="index"
       >
-        <span> {{point}}</span>
+        <span> {{ point === 0 ? 'o' : point }}</span>
       </span>
     </div>
   </div>
@@ -22,6 +22,12 @@ import boardData from '../assets/board.json';
 export default {
   name: 'Board',
   components: {},
+  props: {
+    numberOfPlayers: {
+      type: Number,
+      required: true
+    }
+  },
   data () {
     return {
       boardRows: boardData.rowLengths,
@@ -36,12 +42,16 @@ export default {
       });
 
       this.boardArray = tempArray;
+      return tempArray;
     },
 
     randomisePlayers() {
-      let tempBoardArray = this.boardArray;
+
+      let tempBoardArray = this.createEmptyBoardArray();
+      //  = this.boardArray;
       const totalBoardRows = 12;
-      let playerPositions = [[], [], []];
+      let playerPositions = [];
+      for (let i = 0; i < this.numberOfPlayers; i++) { playerPositions.push([]) }
 
       const getRandomPlayerPos = () => {
         const playerRow = Math.floor(Math.random() * totalBoardRows);
@@ -62,7 +72,7 @@ export default {
 
 
       for (let i = 0; i < 2; i++ ) {
-        for ( let j = 0; j < 3; j++ ) {
+        for ( let j = 0; j < this.numberOfPlayers; j++ ) {
           let satifiesRequirements = false;
 
           while ( !satifiesRequirements ) {
@@ -100,10 +110,10 @@ export default {
     }
   },
   mounted() {
-    this.createEmptyBoardArray()
+    this.randomisePlayers();
   },
   watch: {
-    boardArray() {
+    numberOfPlayers () {
       this.randomisePlayers();
     }
   },
@@ -126,7 +136,6 @@ export default {
       height: calc(100% / 12);
       width: 100%;
       text-align: center;
-      // display: flex;
     }
 
     .board-point {

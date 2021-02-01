@@ -1,17 +1,39 @@
 <template>
   <div id="main">
-    <Board />
+    <SelectPlayerAmount
+      :numberOfPlayers="numberOfPlayers"
+      :playerAmountArray="playerAmountArray"
+      @togglePlayerAmount="togglePlayerAmount"
+    />
+    <Board
+      :numberOfPlayers="numberOfPlayers"
+    />
 
   </div>
 </template>
 
 <script>
 import Board from './components/Board.vue';
+import SelectPlayerAmount from './components/SelectPlayerAmount';
+// import RandomiseButton from '../components/RandomiseButton';
 
 export default {
   name: 'App',
   components: {
-    Board
+    Board,
+    SelectPlayerAmount
+  },
+  data () {
+    return {
+      numberOfPlayers: 4,
+      playerAmountArray: [2, 3, 4]
+    }
+  },
+  methods: {
+    togglePlayerAmount (value) {
+      this.numberOfPlayers = value
+      console.log(`value changed to ${value}`)
+    }
   }
 }
 </script>
@@ -24,8 +46,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-
-
 }
 
 body {
@@ -42,5 +62,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 </style>

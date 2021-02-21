@@ -1,13 +1,13 @@
 <template>
   <div id="main">
     <SelectPlayerAmount
-      :numberOfPlayers="numberOfPlayers"
-      :playerAmountArray="playerAmountArray"
+      :numberOfPlayers="state.numberOfPlayers"
+      :playerAmountArray="state.playerAmountArray"
       @togglePlayerAmount="togglePlayerAmount"
     />
     <Board
-      :reRandomise="reRandomise"
-      :numberOfPlayers="numberOfPlayers"
+      :reRandomise="state.reRandomise"
+      :numberOfPlayers="state.numberOfPlayers"
       @setReRandomiseToFalse="setReRandomiseToFalse"
     />
     <RandomiseButton
@@ -18,9 +18,12 @@
 </template>
 
 <script>
+import { reactive } from 'vue';
+
 import Board from './components/Board.vue';
 import SelectPlayerAmount from './components/SelectPlayerAmount';
 import RandomiseButton from './components/RandomiseButton';
+
 
 export default {
   name: 'App',
@@ -29,25 +32,34 @@ export default {
     SelectPlayerAmount,
     RandomiseButton
   },
-  data () {
-    return {
+  setup() {
+
+    const state = reactive({
       numberOfPlayers: 4,
       playerAmountArray: [2, 3, 4],
       reRandomise: false
+    })
+
+    const togglePlayerAmount = (value) => {
+      state.numberOfPlayers = value
+      // console.log(`value changed to ${value}`)
+    }
+
+    const setReRandomiseToTrue = () => {
+      state.reRandomise = true
+    }
+
+    const setReRandomiseToFalse = () => {
+      state.reRandomise = false
+    }
+
+    return {
+      state: state,
+      togglePlayerAmount: togglePlayerAmount,
+      setReRandomiseToTrue: setReRandomiseToTrue,
+      setReRandomiseToFalse: setReRandomiseToFalse
     }
   },
-  methods: {
-    togglePlayerAmount (value) {
-      this.numberOfPlayers = value
-      console.log(`value changed to ${value}`)
-    },
-    setReRandomiseToTrue () {
-      this.reRandomise = true
-    },
-    setReRandomiseToFalse () {
-      this.reRandomise = false
-    }
-  }
 }
 </script>
 

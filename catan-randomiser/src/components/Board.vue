@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { ref, onMounted, watch, toRefs } from 'vue';
+
 import boardData from '../assets/board.json';
 
 export default {
@@ -33,30 +35,28 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      boardRows: boardData.rowLengths,
-      boardArray: []
-    }
-  },
-  methods: {
-    createEmptyBoardArray() {
+  setup(props, ctx) {
+    const {numberOfPlayers, reRandomise } = toRefs(props);
+    const boardRows = ref(boardData.rowLengths);
+    const boardArray = ref([]);
+
+
+    const createEmptyBoardArray = () => {
       let tempArray = [];
-      this.boardRows.forEach((rowLength) => {
+      boardRows.value.forEach((rowLength) => {
         tempArray.push(Array(rowLength).fill(0));
       });
 
-      this.boardArray = tempArray;
+      boardArray.value = tempArray;
       return tempArray;
-    },
+    }
 
-    randomisePlayers() {
+    const randomisePlayers = () => {
 
-      let tempBoardArray = this.createEmptyBoardArray();
-      //  = this.boardArray;
+      let tempBoardArray = createEmptyBoardArray();
       const totalBoardRows = 12;
       let playerPositions = [];
-      for (let i = 0; i < this.numberOfPlayers; i++) { playerPositions.push([]) }
+      for (let i = 0; i < numberOfPlayers.value; i++) { playerPositions.push([]) }
 
       const getRandomPlayerPos = () => {
         const playerRow = Math.floor(Math.random() * totalBoardRows);
@@ -77,14 +77,13 @@ export default {
 
 
       for (let i = 0; i < 2; i++ ) {
-        for ( let j = 0; j < this.numberOfPlayers; j++ ) {
+        for ( let j = 0; j < numberOfPlayers.value; j++ ) {
           let satifiesRequirements = false;
 
           while ( !satifiesRequirements ) {
             let tempPlayerPos = getRandomPlayerPos();
 
             let allPointsSatisfy = true;
-
             playerPositions.flat().forEach((pos) => {
               const neighbours = [[0,0], [-1, -1], [-1, 0], [-1, 1], [0, 1],
                                   [1, 1], [1, 0], [1, -1], [0, -1]];
@@ -113,17 +112,19 @@ export default {
 
       addPlayerPositionsToBoard();
     }
-  },
-  mounted() {
-    this.randomisePlayers();
-  },
-  watch: {
-    numberOfPlayers () {
-      this.randomisePlayers();
-    },
-    reRandomise () {
-      this.randomisePlayers();
-      this.$emit('setReRandomiseToFalse')
+
+
+    onMounted(randomisePlayers);
+
+    watch(numberOfPlayers, randomisePlayers);
+    watch(reRandomise, () => {
+      randomisePlayers();
+      ctx.emit('setReRandomiseToFalse');
+    })
+
+    return {
+      boardRows: boardRows,
+      boardArray: boardArray
     }
   },
 }

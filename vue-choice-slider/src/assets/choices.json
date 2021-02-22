@@ -1,0 +1,8 @@
+{
+  "choices": [
+    { "choice": "bad", "id": 1 },
+    { "choice": "good", "id": 2 },
+    { "choice": "great", "id": 3 },
+    { "choice": "too great?", "id": 4 }
+  ]
+}

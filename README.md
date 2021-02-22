@@ -7,6 +7,7 @@ Deployed links (when available) and additional info can be found in each project
 
 So far it is made up of the projects:
 * <i>Catan Player Randomiser</i> – a site for randomising player positioning in the board game Catan.
+* <i>Choices to Make!</i> – an attempt to replicate a drag-and-drop preference arrangement prompt that I'd seen online (preference arrangement component).
 
 <hr>
 

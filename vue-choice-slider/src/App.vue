@@ -1,29 +1,37 @@
 <template>
   <div id="app">
-    <div class="draggable-cont" id="draggable-cont1">
-      <draggable
-        id="default-options"
-        class="draggable"
-        :list="unarrangedChoices"
-        group="choices"
-      >
-        <template #item="{element}">
-          <div class="choice">{{element.choice}}</div>
-        </template>
-      </draggable>
+    <div class="option-div" id="option-div1">
+      <h3>Choices:</h3>
+      <div class="draggable-cont">
+        <draggable
+          id="default-options"
+          class="draggable"
+          :list="unarrangedChoices"
+          group="choices"
+          item-key="id"
+        >
+          <template #item="{element}">
+            <div class="choice">{{element.choice}}</div>
+          </template>
+        </draggable>
+      </div>
     </div>
 
-    <div class="draggable-cont" id="draggable-cont2">
-      <draggable
-        id="arranged-options"
-        class="draggable"
-        :list="arrangedChoices"
-        group="choices"
-      >
-        <template #item="{element}">
-          <div class="choice">{{element.choice}}</div>
-        </template>
-      </draggable>
+    <div class="option-div" id="option-div2">
+      <p>Choose the order you want to arrange them in below.</p>
+      <div class="draggable-cont" >
+        <draggable
+          id="arranged-options"
+          class="draggable"
+          :list="arrangedChoices"
+          group="choices"
+          item-key="id"
+        >
+          <template #item="{element}">
+            <div class="choice">{{element.choice}}</div>
+          </template>
+        </draggable>
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 * {
   box-sizing: border-box;
 }
@@ -59,77 +68,118 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 90px;
 
 
   width: 100%;
   min-height: 300px;
-  border: 1px solid black;
+  border: 1px solid #026691;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 
+  padding: 0 4%;
 
-  .draggable-cont {
+  p, div {
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 1000px) {
+    padding: 0;
+
+    p, div {
+    font-size: 0.9rem;
+  }
+  }
+
+  .option-div {
+    width: 100%;
+    height: 100%;
     display: flex;
-    border: 1px solid #042c99;
+    flex-direction: column;
+    justify-content: space-evenly;
 
-    .draggable {
-      width: 100%;
+    h3, p {
+      color: #37383C;
     }
 
+    h3 {
+      font-style: italic;
+      text-decoration: underline;
+      margin: 0 0 2px 0;
+    }
 
-    #default-options {
+    p {
+      font-weight: 200;
+      font-style: italic;
+      margin: 0 0 4px 0;
+    }
+
+    .draggable-cont {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      width: 100%;
 
-      min-height: 200px;
-      padding: 12px 2%;
-
-      div {
+      .draggable {
+        border: 1px solid #026691;
         width: 100%;
-        height: 25%;
+      }
+
+      #default-options {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        min-height: 240px;
+        padding: 12px 2%;
+
+        .choice {
+          width: 100%;
+          height: 25%;
+        }
+      }
+
+      #arranged-options {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        min-height: 60px;
+        padding: 3px 2%;
+
+
+        .choice {
+          width: 25%;
+          height: 100%;
+        }
       }
     }
 
-    #arranged-options {
+    .choice {
       display: flex;
-      flex-direction: row;
+      align-items: center;
       justify-content: center;
 
-      min-height: 50px;
-      padding: 3px 2%;
+      background-color: #25AC82;
+      color: #FFFFFF;
 
+      border: 1px solid #1b8362;
+      margin: 1px;
 
-      div {
-        width: 25%;
-        height: 100%;
+      &:hover {
+        cursor: pointer;
       }
     }
   }
 
-  #draggable-cont1 {
+  #option-div1 {
     width: 18%;
   }
 
-  #draggable-cont2 {
+  #option-div2 {
     width: 72%;
   }
 
-  .choice {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid black;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 </style>

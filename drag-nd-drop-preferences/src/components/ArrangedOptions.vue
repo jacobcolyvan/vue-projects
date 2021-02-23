@@ -1,6 +1,6 @@
 <template>
   <div class="option-div" id="option-div2">
-      <p>Choose the order you want to arrange them in below.</p>
+      <p>Arrange from weakest to strongest below.</p>
       <div class="draggable-cont" >
         <draggable
           id="arranged-options"

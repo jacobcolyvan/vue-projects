@@ -1,6 +1,6 @@
 <template>
   <div class="option-div" id="option-div1">
-      <h3>Choices2:</h3>
+      <h3>Choices:</h3>
       <div class="draggable-cont">
         <draggable
           id="default-options"
@@ -35,18 +35,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#default-options {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  min-height: 240px;
-  padding: 12px 2%;
-
-  .choice {
-    width: 100%;
-    height: 25%;
-  }
-}
 
 </style>

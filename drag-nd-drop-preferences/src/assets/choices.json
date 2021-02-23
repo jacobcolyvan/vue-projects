@@ -1,0 +1,8 @@
+{
+  "choices": [
+    { "choice": "React", "id": 1 },
+    { "choice": "Javascript", "id": 2 },
+    { "choice": "Vue", "id": 3 },
+    { "choice": "Python", "id": 4 }
+  ]
+}

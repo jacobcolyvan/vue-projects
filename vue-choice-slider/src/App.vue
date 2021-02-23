@@ -8,7 +8,6 @@
           class="draggable"
           :list="unarrangedChoices"
           group="choices"
-          item-key="id"
         >
           <template #item="{element}">
             <div class="choice">{{element.choice}}</div>
@@ -25,7 +24,7 @@
           class="draggable"
           :list="arrangedChoices"
           group="choices"
-          item-key="id"
+
         >
           <template #item="{element}">
             <div class="choice">{{element.choice}}</div>
@@ -84,14 +83,6 @@ export default {
 
   p, div {
     font-size: 1rem;
-  }
-
-  @media screen and (max-width: 1000px) {
-    padding: 0;
-
-    p, div {
-    font-size: 0.9rem;
-  }
   }
 
   .option-div {
@@ -181,5 +172,19 @@ export default {
     width: 72%;
   }
 
+
+  @media screen and (max-width: 1000px) {
+    padding: 0;
+
+    p, div { font-size: 0.9rem; }
+
+    #option-div1 {
+      width: 19.5%;
+    }
+
+    #option-div2 {
+      width: 78%;
+    }
+  }
 }
 </style>

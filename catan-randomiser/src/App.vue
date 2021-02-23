@@ -19,7 +19,6 @@
 
 <script>
 import { reactive } from 'vue';
-
 import Board from './components/Board.vue';
 import SelectPlayerAmount from './components/SelectPlayerAmount';
 import RandomiseButton from './components/RandomiseButton';
@@ -33,7 +32,6 @@ export default {
     RandomiseButton
   },
   setup() {
-
     const state = reactive({
       numberOfPlayers: 4,
       playerAmountArray: [2, 3, 4],

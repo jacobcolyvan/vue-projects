@@ -1,49 +1,22 @@
 <template>
-  <div id="app">
-    <div class="option-div" id="option-div1">
-      <h3>Choices:</h3>
-      <div class="draggable-cont">
-        <draggable
-          id="default-options"
-          class="draggable"
-          :list="unarrangedChoices"
-          group="choices"
-        >
-          <template #item="{element}">
-            <div class="choice">{{element.choice}}</div>
-          </template>
-        </draggable>
-      </div>
-    </div>
-
-    <div class="option-div" id="option-div2">
-      <p>Choose the order you want to arrange them in below.</p>
-      <div class="draggable-cont" >
-        <draggable
-          id="arranged-options"
-          class="draggable"
-          :list="arrangedChoices"
-          group="choices"
-
-        >
-          <template #item="{element}">
-            <div class="choice">{{element.choice}}</div>
-          </template>
-        </draggable>
-      </div>
-    </div>
+  <div id="main">
+    <DefaultOptions :unarrangedChoices="unarrangedChoices" />
+    <ArrangedOptions :arrangedChoices="arrangedChoices" />
   </div>
 </template>
 
 <script>
 import {ref} from 'vue'
-import draggable from 'vuedraggable'
 import choicesObject from './assets/choices.json'
+
+import DefaultOptions from './components/DefaultOptions'
+import ArrangedOptions from './components/ArrangedOptions'
 
 export default {
   name: 'choice-slider',
   components: {
-    draggable
+    DefaultOptions,
+    ArrangedOptions,
   },
   setup() {
     const unarrangedChoices = ref([...choicesObject.choices]);
@@ -57,13 +30,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 * {
   box-sizing: border-box;
 }
 
-#app {
+#main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
